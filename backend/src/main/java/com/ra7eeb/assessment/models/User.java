@@ -17,8 +17,7 @@ import java.util.List;
 public class User implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    Long id = newId();
 
     @Column(name = "name")
     @NotEmpty
@@ -34,4 +33,8 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "userId")
     private List<BorrowingHistory> borrowingHistories;
+
+    private long newId() {
+        return (long) (Math.random() * 100000000);
+    }
 }

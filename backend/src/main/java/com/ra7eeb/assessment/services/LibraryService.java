@@ -32,7 +32,15 @@ public class LibraryService {
     }
 
     public User addUser(UserDTO user) {
-        return userRepo.save(user.toEntity());
+        User newUser = user.toEntity();
+        //checking if the user already exists
+        //we could check also by email or phone number
+        // but for the sake of the assessment, I will check by the id only
+        User existingUser = userRepo.findById(newUser.getId()).orElse(null);
+        if (existingUser != null) {
+            throw new BadRequestException("User already exists");
+        }
+        return userRepo.save(newUser);
     }
 
     public List<Book> getBooks(String query) {
