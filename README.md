@@ -20,7 +20,7 @@ To run the python script we should run:
 
   `docker exec -it python_scripts python generate_fake_data.py`
 
-you can now interact with the API using any client like Postman on port 8080
+you can now interact with the API using any client like Postman on port 8080 *you can find a postman collection in the repo*
 
 All the endpoints aren't secured except adding a new user. In order to add user use the following settings. I created two in mermory users, one with role admin which can access anything and the other with role patron which can do anything except adding users. 
 
