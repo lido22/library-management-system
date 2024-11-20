@@ -14,6 +14,7 @@ To run the python script we should run:
 
 you can now interact with the API using any client like Postman
 
-All the endpoints aren't secured except adding a new user. In order to add user use the following settings. I created two in mermory users, one with role admin which can access anything and the other with role patron which can do anything except adding users
+All the endpoints aren't secured except adding a new user. In order to add user use the following settings. I created two in mermory users, one with role admin which can access anything and the other with role patron which can do anything except adding users. 
+
 
 ![image](https://github.com/user-attachments/assets/0279945f-cdb0-467f-85b1-1e9ab80a20ed)
