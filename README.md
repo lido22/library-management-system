@@ -3,11 +3,12 @@
 ## How To Run
 
 You should run
-   
+   `cd ./backend`
    `mvn clean install`
    
 To start the service run:
 
+  `cd ../`
   `docker-compose up --build`
 
 After all the services start we need to run the python script that will populate our db.
