@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'postgres_db'
+
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data'
+      - './db-init:/docker-entrypoint-initdb.d'
+
+  backend:
+    build:
+        context: ./backend
+        dockerfile: Dockerfile
+    container_name: spring_app
+    depends_on:
+      - postgres
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: secret
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+    volumes:
+      - ./backend:/app
+  python-scripts:
+      build:
+        context: ./python-scripts
+        dockerfile: Dockerfile
+      container_name: python_scripts
+      depends_on:
+        - postgres
+      volumes:
+        - ./python-scripts:/scripts
+      environment:
+        DB_HOST: jdbc:postgresql://postgres_db:5432
+        DB_NAME: mydatabase
+        DB_USER: myuser
+        DB_PASSWORD: secret
+      entrypoint: [ "tail", "-f", "/dev/null" ]
+
+volumes:
+  postgres_data:
